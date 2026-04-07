@@ -1,0 +1,22 @@
+{% extends "base.html" %}
+
+{% block title %}{{ movie.title }} - CSFD Top 300{% endblock %}
+
+{% block content %}
+<a class="back-link" href="{{ url_for('main.index') }}">&larr; Back to search</a>
+
+<h1>{{ movie.title }}</h1>
+
+<div class="results-section">
+    <h2>Actors</h2>
+    {% if movie.actors.all() %}
+        <ul>
+        {% for actor in movie.actors %}
+            <li><a href="{{ url_for('main.actor_detail', actor_id=actor.id) }}">{{ actor.name }}</a></li>
+        {% endfor %}
+        </ul>
+    {% else %}
+        <p>No actors listed.</p>
+    {% endif %}
+</div>
+{% endblock %}

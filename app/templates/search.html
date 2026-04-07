@@ -1,0 +1,40 @@
+{% extends "base.html" %}
+
+{% block title %}CSFD Top 300 - Search{% endblock %}
+
+{% block content %}
+<h1>CSFD Top 300 Movies Search</h1>
+
+<form class="search-form" method="GET" action="{{ url_for('main.index') }}">
+    <input type="text" name="q" value="{{ query }}" placeholder="Movie title or actor name...">
+    <button type="submit">Search</button>
+</form>
+
+{% if query %}
+    <div class="results-section">
+        <h2>Movies ({{ movies|length }})</h2>
+        {% if movies %}
+            <ul>
+            {% for movie in movies %}
+                <li><a href="{{ url_for('main.movie_detail', movie_id=movie.id) }}">{{ movie.title }}</a></li>
+            {% endfor %}
+            </ul>
+        {% else %}
+            <p>No movies found.</p>
+        {% endif %}
+    </div>
+
+    <div class="results-section">
+        <h2>Actors ({{ actors|length }})</h2>
+        {% if actors %}
+            <ul>
+            {% for actor in actors %}
+                <li><a href="{{ url_for('main.actor_detail', actor_id=actor.id) }}">{{ actor.name }}</a></li>
+            {% endfor %}
+            </ul>
+        {% else %}
+            <p>No actors found.</p>
+        {% endif %}
+    </div>
+{% endif %}
+{% endblock %}
